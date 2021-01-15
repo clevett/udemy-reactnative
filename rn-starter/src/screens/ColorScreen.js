@@ -1,16 +1,28 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, StyleSheet, Button } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({
 
 })
 
 const CounterScreen = () => {
-    const [color, setColor] = useState(randomRgb())
+    const [color, setColor] = useState([])
 
     return(
         <View>
-            <Button title="Add a Color" onPress={()=> setColor(randomRgb())} />
+            <Button title="Add a Color" onPress={()=> setColor([...color, randomRgb()])} />
+            <FlatList
+                keyExtractor={(item) => item}
+                data={color}
+                renderItem={({ item }) => {
+                    return <View style={{ 
+                        height: 100,
+                        width: 100,
+                        backgroundColor: item
+                    }} />
+                }}
+            />
             <View style={{ 
                 height: 100,
                 width: 100,
